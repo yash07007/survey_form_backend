@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const questionSchema = new Schema(
     {
-        question_code: { type: String, required: true },
+        question_code: { type: String, required: true, unique:true },
         question_text: { type: String, required: true },
     },
     { timestamps: true }
