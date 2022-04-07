@@ -22,10 +22,10 @@ connection.once("open", () => {
 });
 
 const questionsRouter = require("./routes/questions");
-const usersRouter = require("./routes/users");
+const surveysRouter = require("./routes/surveys");
 
-app.use("/questions", questionsRouter);
-app.use("/users", usersRouter);
+app.use("/question", questionsRouter);
+app.use("/survey", surveysRouter);
 
 // Listen to server
 app.listen(port, () => {

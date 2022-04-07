@@ -1,17 +1,12 @@
 const router = require("express").Router();
 let Question = require("../models/question.model");
 
-router.route("/").get((req, res) => {
-    Question.find()
-        .then((questions) => res.json(questions))
-        .catch((err) => res.status(400).json("Error " + err));
-});
-
+// Create
 router.route("/add").post((req, res) => {
-    const question = req.body.question;
-    const options = req.body.options;
+    const question_code = req.body.question_code;
+    const question_text = req.body.question_text;
 
-    const newQuestion = new Question({ question, options });
+    const newQuestion = new Question({ question_code, question_text });
 
     newQuestion
         .save()
@@ -19,22 +14,32 @@ router.route("/add").post((req, res) => {
         .catch((err) => res.status(400).json("Error " + err));
 });
 
-router.route("/:id").delete((req, res) => {
-    Question.findByIdAndDelete(req.params.id)
-        .then(() => res.json("Question Deleted"))
+// Read
+router.route("/").get((req, res) => {
+    Question.find()
+        .then((questions) => res.json(questions))
         .catch((err) => res.status(400).json("Error " + err));
 });
 
+// Update
 router.route("/update/:id").post((req, res) => {
     Question.findById(req.params.id)
         .then((question) => {
-            question.question = req.body.question
-            question.options = req.body.options
+            question.question_code = req.body.question_code;
+            question.question_text = req.body.question_text;
 
-            question.save()
-                .then(() => res.json("Question Updated"))
+            question
+                .save()
+                .then(() => res.json("Question Updated!"))
                 .catch((err) => res.status(400).json("Error " + err));
         })
+        .catch((err) => res.status(400).json("Error " + err));
+});
+
+// Delete
+router.route("/:id").delete((req, res) => {
+    Question.findByIdAndDelete(req.params.id)
+        .then(() => res.json("Question Deleted!"))
         .catch((err) => res.status(400).json("Error " + err));
 });
 

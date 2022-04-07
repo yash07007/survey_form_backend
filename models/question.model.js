@@ -4,8 +4,8 @@ const Schema = mongoose.Schema;
 
 const questionSchema = new Schema(
     {
-        question: { type: String, required: true },
-        options: [{ type: String }],
+        question_code: { type: String, required: true },
+        question_text: { type: String, required: true },
     },
     { timestamps: true }
 );
