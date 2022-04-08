@@ -17,7 +17,10 @@ router.route("/add").post((req, res) => {
 // Read
 router.route("/").get((req, res) => {
     Question.find()
-        .then((questions) => res.json(questions))
+        .then((questions) => {
+            questions = questions.sort(() => Math.random() - Math.random()).slice(0, req.query.noOfQuestions);
+            res.json(questions);
+        })
         .catch((err) => res.status(400).json("Error " + err));
 });
 
